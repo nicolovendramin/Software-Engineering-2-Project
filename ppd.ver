@@ -1,0 +1,62 @@
+\begin {longtable}{@{}ll>{\hsize =\vhAuthorColWidth }X>{\hsize =\vhChangeColWidth }X@{}}
+\textbf {\vhversionname }
+ & \textbf {\vhdatename }
+ & \textbf {\vhauthorname }
+ & \textbf {\vhchangename }\\[1ex]
+0.1
+ & 18.01.17
+ & \listset {N and J}
+ & Initiated the document\\
+0.2
+ & 18.01.17
+ & \listset {N and J}
+ & Writing the introduction\\
+0.3
+ & 19.01.17
+ & \listset {N and J}
+ & Work to define the outline to be followed for Function Points and Cocomo\\
+0.4
+ & 19.01.17
+ & \listset {N}
+ & Starting with function points evaluation\\
+0.5
+ & 19.01.17
+ & \listset {J}
+ & Starting with COCOMO analysis\\
+0.6
+ & 20.01.17
+ & \listset {N and J}
+ & Meeting for common revision\\
+0.7
+ & 20.01.17
+ & \listset {N}
+ & Concluded work on Function points\\
+0.8
+ & 21.01.17
+ & \listset {J}
+ & Concluded work on COCOMO\\
+0.9
+ & 21.01.17
+ & \listset {N and J}
+ & Schedule planning\\
+0.10
+ & 21.01.17
+ & \listset {N}
+ & Risk Management\\
+0.11
+ & 22.01.17
+ & \listset {J}
+ & Resource Management\\
+0.12
+ & 22.01.17
+ & \listset {N and J}
+ & Revision\\
+1.0
+ & 22.01.17
+ & \listset {N and J}
+ & First Release\\
+1.1
+ & 23.01.17
+ & \listset {N and J}
+ & Small fixes\\
+\end {longtable}

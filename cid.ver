@@ -1,0 +1,42 @@
+\begin {longtable}{@{}ll>{\hsize =\vhAuthorColWidth }X>{\hsize =\vhChangeColWidth }X@{}}
+\textbf {\vhversionname }
+ & \textbf {\vhdatename }
+ & \textbf {\vhauthorname }
+ & \textbf {\vhchangename }\\[1ex]
+0.1
+ & 22.01.17
+ & \listset {N and J}
+ & Division of the roles\\
+0.1
+ & 24.01.17
+ & \listset {N}
+ & Issue tracking\\
+0.1
+ & 25.01.17
+ & \listset {J}
+ & Issue tracking\\
+0.1
+ & 29.01.17
+ & \listset {J}
+ & Issue tracking\\
+0.1
+ & 01.02.17
+ & \listset {N}
+ & Issue tracking\\
+0.2
+ & 02.02.17
+ & \listset {N and J}
+ & Document Editing\\
+0.3
+ & 04.02.17
+ & \listset {N and J}
+ & Writing the introduction\\
+0.4
+ & 05.02.17
+ & \listset {N and J}
+ & Conclusion of the document\\
+1.0
+ & 05.02.17
+ & \listset {N and J}
+ & First release\\
+\end {longtable}

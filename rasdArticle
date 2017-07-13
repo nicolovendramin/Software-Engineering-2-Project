@@ -1,0 +1,726 @@
+\documentclass[a4paper,10pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{lipsum}
+\usepackage{listings,xcolor}
+\usepackage{enumerate}
+\usepackage{vhistory}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{rotating}
+\usepackage{afterpage}
+\usepackage{color}
+\definecolor{eclipseBlue}{RGB}{42,0.0,255}
+\definecolor{eclipseGreen}{RGB}{63,127,95}
+\definecolor{eclipsePurple}{RGB}{127,0,85}
+%\lstset{emph={fact,assert,pred,sig,no,one,lone,in,some,enum,run,open,abstract,extends,implies},emphstyle={\bfseries\underbar}}
+\lstdefinelanguage{myLang}
+{
+  % list of keywords
+  morekeywords={fact,assert,pred,sig,no,one,lone,in,some,enum,run,open,abstract,extends,implies},
+  sensitive=false, % keywords are not case-sensitive
+  morecomment=[l]{//}, % l is for line comment
+  morecomment=[s]{/*}{*/}, % s is for start and end delimiter
+  morestring=[b]" % defines that strings are enclosed in double quotes
+}
+\lstset{
+  language={myLang},
+  basicstyle=\small\ttfamily, % Global Code Style
+  captionpos=b, % Position of the Caption (t for top, b for bottom)
+  extendedchars=true, % Allows 256 instead of 128 ASCII characters
+  tabsize=2, % number of spaces indented when discovering a tab 
+  columns=fixed, % make all characters equal width
+  keepspaces=true, % does not ignore spaces to fit width, convert tabs to spaces
+  showstringspaces=false, % lets spaces in strings appear as real spaces
+  breaklines=true, % wrap lines if they don't fit
+  frame=trbl, % draw a frame at the top, right, left and bottom of the listing
+  frameround=tttt, % make the frame round at all four corners
+  framesep=4pt, % quarter circle size of the round corners
+  numbers=left, % show line numbers at the left
+  numberstyle=\tiny\ttfamily, % style of the line numbers
+  commentstyle=\color{eclipseGreen}, % style of comments
+  keywordstyle=\color{eclipsePurple}, % style of keywords
+  stringstyle=\color{eclipseBlue}, % style of strings
+}
+\setcounter{tocdepth}{3}
+\setcounter{secnumdepth}{3}
+\title{Requirement Analysis and Specifications Document}
+\author{Joan Ficapal Vila (876805), Nicolò Vendramin (879113)}
+\date{\today\\v1.0}
+\begin{document}
+  \pagenumbering{Roman}
+  \begin{figure}[t]
+  \centering
+    \includegraphics[scale=0.3]{Resources/logoPolimi.png}
+  \end{figure}
+  \thispagestyle{empty}
+  \maketitle
+  \newpage
+  \begin{versionhistory}
+    \vhEntry{0.1}{31.10.16}{N and J}{First draft of the introduction}
+    \vhEntry{0.2}{31.11.16}{N and J}{Adding the Domain Properties}
+    \vhEntry{0.3}{1.10.16}{N and J}{Definition of Goals and Constraints}
+    \vhEntry{0.4}{2.11.16}{N and J}{Conclusion of the overall section}
+    \vhEntry{0.5}{3.11.16}{N and J}{Introduction to the third section}
+    \vhEntry{0.6}{4.11.16}{N and J}{Adding the mockup examples of the UI}
+    \vhEntry{0.7}{5.11.16}{N and J}{Adding the Functional requirements}
+    \vhEntry{0.8}{6.11.16}{N and J}{Adding more details about non functional req}
+    \vhEntry{0.9}{7.11.16}{N and J}{Describing the scenarios}
+    \vhEntry{0.10}{8.11.16}{N and J}{Adding the Use Case Diagram}
+    \vhEntry{0.11}{9.11.16}{N and J}{Adding the Use Case Description}
+    \vhEntry{0.12}{10.11.16}{N and J}{Adding the Sequence Diagrams}
+    \vhEntry{0.13}{10.11.16}{N and J}{Realizing the allow signatures}
+    \vhEntry{0.14}{11.11.16}{N and J}{Realizing the alloy facts}
+    \vhEntry{0.15}{12.11.16}{N and J}{Realizing the alloy assertions}
+    \vhEntry{0.16}{13.11.16}{N and J}{Realizing the alloy predicates}
+    \vhEntry{1.0}{13.11.16}{N and J}{First release of the complete document}
+  \end{versionhistory}
+  \paragraph{Hours of work}
+  \begin{description}
+    \item[$\bullet$] Joan Ficapal Vila : 25 hours
+    \item[$\bullet$] Nicolò Vendramin : 26 hours
+   \end{description}
+   \newpage
+  \tableofcontents
+  \newpage
+  \pagenumbering{arabic}
+  \section{Introduction}
+  \subsection{Description of the given Problem} \paragraph{} We will project and implement the PowerEnJoy system for the car-sharing service
+  of electric cars. The service will be based on a mobile application interacting with an online server
+  that can be accessed by anyone in possess of an iOS or Android smartphone.
+  \paragraph{}The system allows the user to log in or, in case he/she is a new user, to register providing credentials and payment information. 
+  After logging into the application it is also possible to locate
+  the available cars within a certain distance from the user's position or from a specified address. The system also provides the possibility to 
+  book one of the shown cars. After the booking is completed the user must reach the vehicle within one hour, otherwise the 
+  booking expires, the car is tagged again as available and the user is charged with a fee. When a booking is active the system 
+  provides the user with the possibility to
+  ask the system to unlock the car in order to start the rent. During the rent the client is informed of the real-time cost of the rent
+  through a screen placed in the car; moreover, as soon as the car is parked in one of the predefined safe areas, the system calculates
+  the final charge for the user applying some discounts in case of certain positive behaviours being detected. When the rent is over 
+  and
+  the user has left the car the system locks it again and adds it to the available cars.
+  \subsubsection{Target User} \paragraph{}The only actor that is going to interact with the system is the final customer of the rental service, above 
+  called: the user. The systems allows only registered users to access the rental service, and offers to the new users nothing but the 
+  possibility to register.
+  \subsection{Existing system} \paragraph{} The mobile application which composes the new system interacts with a previously designed 
+  system which has been developed in order to administrate the vehicles that are used for the rental service. This existing system 
+  periodically 
+  retrieves data from the cars and populates a database in which for every car is stored the information about power, position and 
+  everything else that can be useful for the service. In addition it offers to the employees of the company the possibility to 
+  manage the available vehicles manually, for example removing them by the system if a problem is detected, and some features for 
+  automatic problem handling such as removing a car with unsufficient power and signaling it to an operator that can move the car and
+  plug it in in one of the service areas.
+  
+  \subsection{Definitions, Acronyms and Abbreviations}
+  \subsubsection{Definitions}
+  \begin{description}
+    \item[$\bullet$] \textbf{User:} It is used to indicate the generic person that access the application.
+    \item[$\bullet$] \textbf{Client:} This term is used to identify each user registered in the application, that has been correctly 
+    identified by the system through the log in procedure. In order to register to the service the client need to
+    provide the following information:
+    \begin{enumerate}[-]
+      \item Name
+      \item Surname
+      \item Birthday
+      \item Driving License Number
+      \item Driving License Expiration Date
+      \item e-Mail (unique)
+      \item Password for the service
+      \item Credit/Debit Card Number
+      \item Credit/Debit Card Security Code
+    \end{enumerate}
+    \item[$\bullet$] \textbf{Car:} It is a vehicle that can be used for the rental service offered by the application. Every car is
+    equipped with GPS, Power level sensor, pressure sensors, plug-detection sensor (distinguish whether the car is plugged or not)
+    ,a timer that monitors the duration of each rent and a small monitor.
+    \item[$\bullet$] \textbf{Ride:} It is the unit of use of the rental service. The period between the ingition of the car and the end of the 
+    rent. The client is charged proportionally to the duration of the ride.
+    \item[$\bullet$] \textbf{Reservation:} It is the booking of one of the available cars so that other people cannot use it. A reservation
+    lasts for a period of maximum one hour after which it expires. In order to open a vehicle the client must reserve it before.
+    It is identified by the expiration time, the user id and the car identifier.
+    \item[$\bullet$] \textbf{Notification:} It is a pop up message that is displayed on the client's smartphone. Notifications are used 
+    by the application to comunicate important messages.
+    \item[$\bullet$] \textbf{System:} It is the new system, composed by a mobile application for devices running either iOS or Android. The 
+    new System access the data contained in the database of the old system.
+    \item[$\bullet$] \textbf{Legacy:} It is the existing system used to manage the vehicles and their state. The Legacy system is not going
+    to be replaced by the new System. The two system are going to interact in order to offer to the final customer access to the service.
+    \item[$\bullet$] \textbf{Safe Area:} It is one of the zones of the city in which is possible to leave the car at the end of the rent.
+    \item[$\bullet$] \textbf{Re-charge Site:} It is a Safe Area in which there is the possibility to plug the car to refill the battery.
+    \item[$\bullet$] \textbf{Billing Service:} It is the service that is used from the application to charge the user with the amount needed 
+    to pay the ride. 
+    \item[$\bullet$] \textbf{Client Module:} It is the software component installed on the phone of the user. It has the role
+    of a remote interface to the server.
+    \item[$\bullet$] \textbf{Server Module:} It is the software component running on the servers of the company that provides
+    the functionalities.
+  \end{description}
+  \subsubsection{Acronyms}
+  \begin{description}
+    \item[$\bullet$] \textbf{API:} Access point of Interface. This term is used to indicate the interfaces exposed to access a software
+    service from another software service.
+    \item[$\bullet$] \textbf{GPS:} Global Positioning System. This is the most common localization tool mounted on a wide variety of
+    devices such as phones and laptops.
+    \item[$\bullet$] \textbf{DBMS:} Data Base Management System. Is the software used to query the database.
+    \item[$\bullet$] \textbf{UI:} User Interface. The interface whit which the user access the functionalities provided 
+    by a software product.
+  \end{description}
+  %\subsubsection{Abbreviations}
+  %\begin{description}
+  %\end{description}
+  \subsection{Identifying Stakeholders} The main stakeholder of the system is the company commissioning its realization. 
+  Other stakeholders 
+  are the city (both governance and population) in which the system has to be used,
+  the other companies offering similar services and also the public transportations providers. Ecologists organizations can also be
+  considered as stakeholders since this new service is going to provide a "green" alternative for moving in the city.
+  \subsection{Reference Documents} This document has been written following the IEEE standard number 830-1998 "Recommmended Practice
+  fir Siftware Requirements Secifications".
+  \subsection{Overview} \paragraph{} The rest of this document contains an overall description of the software product
+(section 2), the specific requirements for the system (section 3) and the appendix
+(section 4). The appendix contains all UML diagrams useful to describe the
+functionalities of the software, some scenarios and the Alloy modeling.
+  \section{Overall Description}
+  \subsection{Domain Properties and Assumptions}
+  In this section we analyize all the properties of the application domain of the system in order to describe the environment in which it 
+  operates. 
+  \begin{description}
+    \item[$\bullet$] All the GPS (both on the user phones and on the cars) always give the right postion.
+    \item[$\bullet$] All the power level and pressure sensors mounted on the cars are giving the correct data.
+    \item[$\bullet$] The previous system which manages the cars is already populated and working.
+    \item[$\bullet$] The credentials provided by the user are unique (e-mail as id).
+    \item[$\bullet$] If a car is marked as available, it is present on the map and it is actually available for the rent.
+    \item[$\bullet$] All the cars present on the system are working properly.
+    \item[$\bullet$] A car present on the system can be only in one of the following states: available, booked or in rent.
+    \item[$\bullet$] The client is billed for the use of the service using an external service.
+    \item[$\bullet$] Any information about the vehicles is gathered by the new System via direct access to the database of the existing system.
+    \item[$\bullet$] The other system works correctly without problems.
+    \item[$\bullet$] In case of any extraordinary event handling (car accidents, system not working) the operators that works 
+    for the existing service will manually intervene and manage the problem.
+    \item[$\bullet$] Any time a car is left unplugged with very low power level, it is not retagged as available by the existing system until the 
+    power level reaches again a minimum level.
+    \item[$\bullet$] We assume that is possible to check the corrispondence between Name+Surname+Birthday and Driving License Number+Expiration Date
+    using an external institutional service.
+    \item[$\bullet$] We assume that when a car is unlocked, the one who opens it and uses it is always the owner
+    of the reservation. For this reason no further cross-check is needed.
+    \item[$\bullet$] We assume that when a car is opened the user will start using it immediately.
+    \item[$\bullet$] We assume that when the user concludes the session he is out of the car and the old system manages to lock the vehicle.
+    \item[$\bullet$] We assume that is possible to identify without ambiguity the cars using their plate.
+    \item[$\bullet$] The billing service never fails or if it does it handles internally any problem.
+    \item[$\bullet$] The operators of the existing service periodically checks the cars in order to ensure that they are in proper conditions.
+    \item[$\bullet$] We assume that the database with the data related to the cars is associated to a middleware that is able to notify
+    the system when the status of a variable changes (e.g.: engine ignition sends a control message to the existing system which 
+    changes the corresponding variable in the database. The change is advertised by the middleware to the other system)
+    \item[$\bullet$] Between the moment in which the map with available cars is updated the most recent time and the moment in which 
+    the user performs the booking none of the available cars has changed its status.
+  \end{description}
+  \subsection{Goals} \paragraph{} Here is the list of goals, intended as the actions that the system allow the user to do:
+  \begin{description}
+    \item[$\bullet$] \textbf{[G0]} Allows everyone to register on the system
+    \item[$\bullet$] \textbf{[G1]} Allows the client to login
+    \item[$\bullet$] \textbf{[G2]} Allows the client to check the cars available within a certain distance from a specified position
+    \item[$\bullet$] \textbf{[G3]} Allows the client to check the cars available within a certain distance from their position
+    \item[$\bullet$] \textbf{[G4]} Allows the client to book a vehicle for a rent
+    \item[$\bullet$] \textbf{[G5]} Allows the client to open the booked vehicle if the booking has not expired yet and he is close to it
+    \item[$\bullet$] \textbf{[G6]} Allows the client to update his/her credentials or payment details
+    \item[$\bullet$] \textbf{[G7]} Conclude the rent and be notified when the rent is over and the payment is successfully completed
+    \item[$\bullet$] \textbf{[G8]} Allows the client to inspect the power level of a selected car before booking it
+    \item[$\bullet$] \textbf{[G9]} Allows the client to identify the localization of the safe areas where the vehicle can be left
+    \item[$\bullet$] \textbf{[G10]} Allows the client to cancel an existing booking up to the expiration time.
+  \end{description}
+  \subsection{Actors Identifying}
+  \begin{description}
+    \item[$\bullet$] \textbf{User:} Everyone willing to use the application that has not been registered yet. They can’t access 
+    the application functionality but the registration form.
+    \item[$\bullet$] \textbf{Client:} Every registered user willing to use the application. They can access the complete functionality of the application.
+    \item[$\bullet$] \textbf{Online Application Server:} This is the main brain of the application system which executes the queries of the users and clients through the Mobile Application,
+    taking also into account the situation in the other actors such as Billing system and Existing System.
+    \item[$\bullet$] \textbf{Mobile Application:} This is the interface from where the users can query query demands 
+    and visualise the answers by the Online Application Server.
+    \item[$\bullet$] \textbf{Billing Service:} Provides APIs to charge the user with the cost of the ride.	
+    \item[$\bullet$] \textbf{Existing Service:}  It is the previous system which handles the majority of situations that our application takes for granted.
+  \end{description}
+  \subsection{Constraints} 
+  \subsubsection{Regulatory Policies}
+  \paragraph{} The system requires the user smartphone location, who must agree to provide 
+  it together with its e-mail, phone and personal data in order to allow a positive application performance. The form will also explain 
+  its privacy law and will make users check the option 
+  “I’ve read and I agree to service terms and conditions” before proceeding to users registration.
+  \subsubsection{Hardware Limitations}
+  \begin{description}
+    \item[$\bullet$] Mobile Application:
+    \begin{enumerate}[-]
+      \item Smartphone.
+      \item 3G Connection.
+      \item GPS enabled.
+      \item 30 Mb of free space in the users device.
+    \end{enumerate}
+    \item[$\bullet$] Online Application Service:
+    \begin{enumerate}[-]
+      \item Apache Server with permissions to access the existing system’s database.
+    \end{enumerate}
+  \end{description}
+  \subsubsection{Parallel Operations} The application server must support parallel operations from different 
+  users or clients.
+  \subsection{Interfaces to other applications} \paragraph{} The mobile application will interact with the web server,
+  querying demands and retrieving the results computed by this one.
+  The application server will interact with the existent system to handle general errors and to retrieves or update the data about
+  the cars used for the service.
+  The application server will interact with the billing system to handle all the tasks related to payments and billing.
+  \section{Requirements}
+  \subsection{External Interface Requirements}
+  \subsubsection{User Interfaces} \paragraph{} The service is accessed by the user through a mobile application with a simple
+  and immediate user interface. The user interface must be easy to understand and provide access to each 
+  functionality with at most 3 taps. Example for the style of the user interface are represented by the following figures: Figure 1, Figure 2 
+  and Figure 3.
+  \begin{figure}
+  \centering
+    \includegraphics[scale=0.4]{Resources/login.jpg}
+    \caption{Mock-up of the desirede interface: Log-in}
+  \end{figure}
+  \begin{figure}
+  \centering
+    \includegraphics[scale=0.4]{Resources/signup.jpg}
+    \caption{Mock-up of the desirede interface: sign up}
+  \end{figure}
+  \begin{figure}
+  \centering
+    \includegraphics[scale=0.4]{Resources/map.jpg}
+    \caption{Mock-up of the desirede interface: map}
+  \end{figure}
+  \subsubsection{Software Interfaces} \paragraph{} The service must communicate with the software interfaces of both the legacy
+  system for the management of the cars and the billing service, which provides support for all the payment and billing operations. 
+  In addition the server module must be integrated with a DBMS in order to access the data stored in the data base of the existing 
+  service.
+  \subsubsection{Communication Interface} \paragraph{} The client module and the server module communicate using the internet and the 
+  standard TCP/IP protocol.
+  \subsection{Functional Requirements}
+  \paragraph{} Here are listed the requirements of the system needed in order to achieve each 
+  of the goals introduced in the section 2.2
+  \begin{description}
+    \item[$\bullet$] Goal [G0] "Allows everyone to register on the system":
+    \begin{enumerate}[-]
+      \item \textbf{[R0]} Recognise if an e-mail address has already been used. 
+      \item \textbf{[R1]} Store the data of the new subscriber.
+      \item \textbf{[R2]} Validate the data relating the driving license.
+      \item \textbf{[R3]} Provide access to the system for the new subscriber.
+    \end{enumerate}
+    \item[$\bullet$] Goal [G1] "Allows the client to login":
+    \begin{enumerate}[-]
+      \item \textbf{[R4]} Check the correctness of the password+username couple.
+    \end{enumerate}
+    \item[$\bullet$] Goal [G2] "Allows the client to check the cars available within a certain distance from a specified position":
+    \begin{enumerate}[-]
+      \item \textbf{[R5]} Receive an address as an input string from the user.
+      \item \textbf{[R6]} Select all the cars available within 3 km from the address.
+      \item \textbf{[R7]} Display the map of the zone with the available cars on it.
+    \end{enumerate}
+    \item[$\bullet$] Goal [G3] "Allows the client to check the cars available within a certain distance from his position":
+    \begin{enumerate}[-]
+      \item \textbf{[R8]} Get the address of the user from the GPS of the mobile device.
+      \item \textbf{[R6]} Select all the cars available within 3 km from the address.
+      \item \textbf{[R7]} Display the map of the zone with the available cars on it.
+    \end{enumerate}
+    \item[$\bullet$] Goal [G4] "Allows the client to book a vehicle for a rent":
+    \begin{enumerate}[-]
+      \item \textbf{[R9]} Selecting a vehicle from the map.
+      \item \textbf{[R10]} Set the car as booked.
+      \item \textbf{[R11]} Start the timer associated with the booking.
+      \item \textbf{[R12]} In case of expiration intrust the billing service to charge the client with a fee of 1\textdollar
+      \item \textbf{[R13]} Checks the validity of the Driving License of the user
+    \end{enumerate}
+    \item[$\bullet$] Goal [G5] "Allows the client to open the booked vehicle if the booking has not
+expired yet and he is close to it":
+    \begin{enumerate}[-]
+      \item \textbf{[R14]} Check if the client is close to the booked vehicle.
+      \item \textbf{[R15]} Check if the booking is still valid.
+      \item \textbf{[R16]} Set the car as in rent.
+      \item \textbf{[R17]} End the timer of the booking.
+      \item \textbf{[R18]} Delete the record about the reservation.
+      \item \textbf{[R19]} Open the correct vehicle.
+      \item \textbf{[R20]} Create a record of the rent initializing the time at 0.
+    \end{enumerate}
+    \item[$\bullet$] Goal [G6] "Allows the client to update his/her credentials or payment details":
+    \begin{enumerate}[-]
+      \item \textbf{[R21]} Display the credentials of the user.
+      \item \textbf{[R22]} Allow the modification of any of the fields.
+      \item \textbf{[R2]} Validate the data relating the driving license.
+      \item \textbf{[R23]} Make the modifications permanent.
+    \end{enumerate}
+    \item[$\bullet$] Goal [G7] "Conclude the rent and be notified when the rent is over and the payment is successfully completed":
+    \begin{enumerate}[-]
+      \item \textbf{[R24]} Check when the rent is over. 
+      \item \textbf{[R25]} Assign to the billing service the task of charging the client.
+      \item \textbf{[R26]} Notify the client for the conclusion of the ride.
+      \item \textbf{[R27]} The billing system confirms the correct completion of the payment.
+    \end{enumerate}
+    \item[$\bullet$] Goal [G8] "Allows the client to inspect the power level of a selected car before
+    booking it":
+    \begin{enumerate}[-]
+      \item \textbf{[R9]} Select a vehicle from the map.
+      \item \textbf{[R28]} Display the details of the vehicle.
+    \end{enumerate}
+    \item[$\bullet$] Goal [G9] "Allows the client to identify the localization of the safe areas where the
+vehicle can be left":
+    \begin{enumerate}[-]
+      \item \textbf{[R29]} Displaying a map of the city with highlighted the safe areas.
+      \item \textbf{[R30]} Displaying the address for each of the safe areas.
+    \end{enumerate}
+    \item[$\bullet$] Goal [G10] "Allows the client to cancel an existing booking up to the expiration time.":
+    \begin{enumerate}[-]
+      \item \textbf{[R31]} Display existing booking if present.
+      \item \textbf{[R15]} Check if the booking is still valid.
+      \item \textbf{[R32]} Cancel the booking.
+    \end{enumerate}
+    \item[$\bullet$] Other requirements:
+    \begin{enumerate}[-]
+      \item \textbf{[R33]} Apply discounts of 10\% to the rides in which the user took at least 2 passengers with him to 
+      incentivate car sharing.
+      \item \textbf{[R34]} Apply discounts of 20\% to the last ride if the car is left with at least 50\% of the battery level
+      \item \textbf{[R35]} Apply discounts of 30\% to the last ride if the client leaves the car in a zone where it can be recharged and plugs it
+      in.
+      \item \textbf{[R36]} Apply an extra charge of 30\% of the cost of the last ride to those users that leave the car at at least 
+      3 Km from the nearest power grid.
+      \item \textbf{[R37]} Apply an extra charge of 30\% of the cost of the last ride to those users that leave the car with at 
+      least 80\% of the battery empty.
+    \end{enumerate}
+  \end{description}
+  \subsection{Performance Requirements}
+  \paragraph{}The application will properly cut its processes when the user is not checking and the phone screen is 
+  black in order to save battery;It must also have a maximum response time of 3 seconds for any operation.
+  Once the user introduces its credentials they will remain kept and he will be logged automatically on
+  future tries when re-opening the application.
+  \subsection{Design Constraints}
+  \paragraph{}The application will be developed in Swift and Java for iOS and Android respectively.
+  The application fill 30 Mb at maximum on the user device.
+  \subsection{Software System Attributes}
+  \subsubsection{Usability} All functionalities must me reachable by the user within 3 clicks, once logged in.
+  The car map interface [Fig. 2] will englobe different car instances in an unified bubble if they are too
+  close to be represented clearly (Google Maps API criteria), the bubble tag will indicate the number of
+  cars in that zone.
+  The typography and images will follow the responsive model in order to assure a good experience for
+  the user in its device, resizing them depending on the particular screen-size.
+  \subsubsection{Availability} The application system will be available 24h hours per day, for each day of the week.
+  \subsubsection{Security} Data protection in transmission must be guaranteed during authentication phase.
+  \subsubsection{Maintainability} Since is a 24/7 service, it should be continuously maintained without interrupting this policy. 
+  If an update or a critical actualization is needed, it would be indicated to users in advance.
+  \subsubsection{Portability} The application can be used in any iOS or Android smartphone.
+  \section{Scenarios and UML Models}
+  \subsection{Scenarios}
+  \subsubsection{Scenario 1}
+  \paragraph{} A random person needs a vehicle in order to reach his home after going out with his friends, this situation happens during night and the public 
+  transport is not working and he hasn't brought his car with him. To solve this problem, our character uses the PowerEnJoy application on his smart phone, 
+  that he has previously used. After logging in,  he finds a car 800 meters away from his position and even if it has just 40
+  \% of the battery he books it. Once he is 2 meters away from the car the application allows him to open it so that the ride can start. Our main character 
+  successfully reaches his home, but he forgets to plug the car in at the safe area, and when he sees the confirmation of the realized payment he notices that he 
+  payed an additional 30\% fee.
+  \subsubsection{Scenario 2}
+  \paragraph{} A girl needs a car to arrive at work on time, because she didn't hear the alarm of her clock, and  remembers about the PowerEnJoy application. 
+  She decides to download and install it and, as soon as she opens the application she is asked to register, After fulfilling the subscription form, she is granted 
+  with a full access to the service functionalities.
+  While she is leaving home, she is called by a friend, who gently offers to bring her at work with her car. For this reason, she opens the application again and
+  cancels the booking.
+  \subsubsection{Scenario 3}
+  \paragraph{} An important lawyer is in a hurry because she needs to meet with some people in a place, she is worried because she's still on the train which leaves 
+  her pretty far from her final destination. Plus, the public transports are on strike. She usually uses PowerEnJoy on those particular situations. After opening it, 
+  she logs in and looks for cars in the surroundings of the train station and books a car 
+  300m away from the station location. 
+  As soon as she arrives, she receives a call informing that the meeting has been canceled. For this reason, she takes the train again to go back home. 
+  She sits down and starts reading a book, forgetting to cancel the reservation . 
+  After 1 hour she receives a notification of the expiration of his booking and of the 1\textdollar fee while she's on the train. 
+  \subsubsection{Scenario 4} \paragraph{} An old guy's license expired 2 days ago. He his really concerned about the environment and about city pollution,
+  so he likes to use environment friendly vehicles such as the ones provided in PowerEnJoy, an application in which he is registered since it came out to market.
+  He decides to use his bike to reach the office and renew his license. After his new details are provided, he opens PowerEnJoy to update his credentials. 
+  Once the server verifies them, he is notified about the successful credential update.
+  \subsubsection{Scenario 5} \paragraph{}  Fabrizio is the singer of a band that plays Italian music. Usually Gigi, the only one of the group’s members 
+  that had a car, goes to the house of each one of the 4 components of the group to pick them up to go to the studio where they have their rehearsals. 
+  Unfortunately, Gigi’s car broke last Wednesday they don’t know how to go to the studio. 
+  Fabrizio remembers about PowerEnjoy, logs into the app, checks the safe areas and sees that luckily there is a safe area with plugs really 
+  close to their rehearsal’s venue. He proceeds to book the car and start the rent. He picks up his friends and, after arriving to their final destination,
+  he parks and plugs it in. For this reason Fabrizio receives a double discount on it’s charge: 30\% because he plugged the car in and an additional
+  10\% because he shared the ride with 3 other passengers. 
+  \subsection{Use Case Diagrams}
+  \paragraph{} Next Page it follows the Use Case Diagram for the system (Figure 4). The subsections of the current 4.2 section are
+  going to explain in detail each of the use cases present in this diagram.
+  \begin{figure}[H]
+  \centering
+    \includegraphics[scale=0.45]{Resources/UseCaseDiagram.png}
+    \caption{Use Case Diagram}
+  \end{figure}
+  \newpage
+  \subsubsection{Register}
+  The user registers am account for the service.
+  \paragraph{Entry Conditions: } 
+  \begin{enumerate}
+    \item The user opens the application.
+    \item The user selects the "create new account" button
+  \end{enumerate}
+  \paragraph{Flow of events: }
+  \begin{enumerate}
+    \item The user fulfills the form, accepts the terms of use and sumbits the information.
+    \item The user information is sent to the existing system in a secure way, using encrypted protocols.
+    \item The existing system registers the user if the information is correct.
+    \item The existing sustem informs the application that the registration was successful.
+  \end{enumerate}
+  \paragraph{Exit Conditions: } The application notifies the client that the registration was successful.
+  \paragraph{Exceptions: } The user doesn't accept the terms of use. A mistake is found in the users registration form.
+  In any of those cases the users is notified of the exception and the process is restarted.
+  \begin{figure}[H]
+  \centering
+    \includegraphics[scale=0.45]{Resources/register.png}
+    \caption{Register Sequence Diagram}
+  \end{figure}
+  \newpage
+  \subsubsection{Log in}
+  The client logs into his personal account.
+  \paragraph{Entry Conditions: } 
+  \begin{enumerate}
+    \item The client opens the application.
+    \item The client is already registered.
+    \item The client is not logged in.
+  \end{enumerate}
+  \paragraph{Flow of events: }
+  \begin{enumerate}
+    \item The user fulfills the log in form.
+    \item The user information is sent to the existing system in a secure way, using encrypted protocols.
+    \item The existing system log in the user if the credentials provided are correct.
+    \item The existing sy stem informs the application that the log in was successful.
+  \end{enumerate}
+  \paragraph{Exit Conditions: } The application shows a screen with a button to start using the service.
+  \paragraph{Exceptions: } The credentials provided don't match anyone registered on the system.
+    \begin{figure}[H]
+  \centering
+    \includegraphics[scale=0.45]{Resources/login.png}
+    \caption{Log in Sequence Diagram}
+  \end{figure}
+  \newpage
+  \subsubsection{Find Cars Next to a Specified Position}
+  The client looks for the cars near a specified position. It can be either his position or an input address.
+  \paragraph{Entry Conditions: } 
+  \begin{enumerate}
+    \item The client is logged in the application. 
+    \item The client on the main page clicks the botton to start the research.
+  \end{enumerate}
+  \paragraph{Flow of events: }
+  \begin{enumerate}
+    \item The application asks the user whether to use the position from the GPS or another provided by the user as input.
+    \item In case the user wants to use his current location the Application access the GPS data.
+    \item In case the user wants to input a position, the user inputs the position.
+    \item The application sends the data to the existing system.
+    \item The existing system replies sending all the cars that match the condition to the application.
+  \end{enumerate}
+  \paragraph{Exit Conditions: } The application shows a map on which are displayed the available cars.
+  \paragraph{Exceptions: } No available cars matching the condition.
+  \begin{figure}[H]
+  \centering
+    \includegraphics[scale=0.45]{Resources/find.png}
+    \caption{Find Car Next to a Specified Position Sequence Diagram}
+  \end{figure}
+    \begin{figure}[H]
+  \centering
+    \includegraphics[scale=0.45]{Resources/findGPS.png}
+    \caption{Find Car Next to a your Position Sequence Diagram}
+  \end{figure}
+  \newpage
+  \subsubsection{Show Details}
+  The client inspect the details of a specific vehicle.
+  \paragraph{Entry Conditions: } 
+  \begin{enumerate}
+    \item The client is logged in the application. 
+    \item The client has performed a research of the cars within a certain position.
+    \item The client double-taps one of the cars on the present on the map.
+  \end{enumerate}
+  \paragraph{Flow of events: }
+  \begin{enumerate}
+    \item The application loads the data cached about the selected car.
+  \end{enumerate}
+  \paragraph{Exit Conditions: } The application shows a screen with the details of the car and with 2 buttons, one to exit and one 2 book.
+  \paragraph{Exceptions: } No exceptions can happen within this use case.
+    \begin{figure}[H]
+  \centering
+    \includegraphics[scale=0.45]{Resources/show.png}
+    \caption{Show Details Sequence Diagram}
+  \end{figure}
+  \newpage
+  \subsubsection{Book a Vehicle}
+  The client books a vehicle.	
+  \paragraph{Entry Conditions: } 
+  \begin{enumerate}
+    \item The client is logged in the application, and is inspecting a vehicle.
+    \item The client agrees to book the selected vehicle and proceeds to press the accept button.
+  \end{enumerate}
+  \paragraph{Flow of events: }
+  \begin{enumerate}
+    \item The application sends a query to the existing system.
+    \item The existing system books the vehicle, labels the vehicle as booked and the client as owner.
+    \item The system starts a timer associated with the booking.
+    \item The existing system informs the system about the successful booking.
+  \end{enumerate}
+  \paragraph{Exit Conditions: } The application informs the user about the successful booking and shows and shows a screen with 
+  the details of the reserved car, including the address and a button to cancel the booking.
+  \paragraph{Exceptions: } The booking timer expires. In that case the billing service is asked to charge the user with 1\textdollar.
+  The user is enabled to book vehicles. The system tags the car as available.
+  \begin{figure}[H]
+  \centering
+    \includegraphics[scale=0.45]{Resources/bookvehicle.png}
+    \caption{Book Vehicle Sequence Diagram}
+  \end{figure}
+  \newpage
+  \subsubsection{Cancel}
+  The client cancels an active booking.
+  \paragraph{Entry Conditions: } 
+  \begin{enumerate}
+    \item The client is logged in the application. 
+    \item The client has an active booking.
+    \item The client presses the cancel button.
+  \end{enumerate}
+  \paragraph{Flow of events: }
+  \begin{enumerate}
+    \item The application sends a request to existing system to cancel the booking.
+    \item The existing system tags the booking as cancelled, the car as free and enables bookings for the client.
+    \item The existing system stops the booking timer.
+    \item The existing system confirms to the application the successful completion of the process.
+    \item The application informs the user of the correct deletion of the booking.
+  \end{enumerate}
+  \paragraph{Exit Conditions: } The application shows again the main page of the application.
+  \paragraph{Exceptions: } No exceptions can happen within this use case.
+  \begin{figure}[H]
+  \centering
+    \includegraphics[scale=0.45]{Resources/Cancel.png}
+    \caption{Cancel Sequence Diagram}
+  \end{figure}
+  \newpage
+  \subsubsection{Open the Vehicle}
+  The client opens the vehicle.
+  \paragraph{Entry Conditions: } 
+  \begin{enumerate}
+    \item The client is logged in the application and has an active and valid booking.
+    \item The client is close to the vehicle.
+    \item The client clicks on the "Open" button.
+  \end{enumerate}
+  \paragraph{Flow of events: }
+  \begin{enumerate}
+    \item The application sends a query to the existing system.
+    \item The existing system checks if the client is close enough to the car.
+    \item The existing system opens the vehicle.
+    \item The existing system informs the system about the successful opening.
+  \end{enumerate}
+  \paragraph{Exit Conditions: } The application informs the user about the successful opening of the car. The client enters the car 
+  and can start the ride.
+  \paragraph{Exceptions: } The user is not close enough. 
+      \begin{figure}[H]
+  \centering
+    \includegraphics[scale=0.45]{Resources/open.png}
+    \caption{Open Vehicle Sequence Diagram}
+  \end{figure}
+  \newpage
+  \subsubsection{Conclude the Rent}
+  The client concludes the session.
+  \paragraph{Entry Conditions: } 
+  \begin{enumerate}
+    \item The client is inside the car that he previously booked. 
+    \item The client wants to conclude his rent.
+    \item The client clicks on the "Conclude" button.
+  \end{enumerate}
+  \paragraph{Flow of events: }
+  \begin{enumerate}
+    \item The application sends a query to the existing system.
+    \item The existing system checks whether the car is in a safa area or not.
+    \item The ride is ended.
+    \item The system calculates the appropriate discounts or extra charges.
+    \item The system prompts the billing service to charge the user with the proper amount.
+    \item The user is allowed again to book vehicles.
+    \item The car is tagged as available.
+  \end{enumerate}
+  \paragraph{Exit Conditions: } The client can leave the car and the application goes back to the main page.
+  \paragraph{Exceptions: } The car is not in a safe area. The car has too low battery, and in that case the existing system would not retag it as available.
+  \begin{figure}[H]
+  \centering
+    \includegraphics[scale=0.45]{Resources/conclude.png}
+    \caption{Conclude the Rent Sequence Diagram}
+  \end{figure}
+  \newpage
+  \subsubsection{Show Safe Areas}
+  The application shows the list of the Safe Areas.
+  \paragraph{Entry Conditions: } 
+  \begin{enumerate}
+    \item The client is logged in into the application.
+    \item The client clicks on the "Show Safe Areas"
+  \end{enumerate}
+  \paragraph{Flow of events: }
+  \begin{enumerate}
+    \item The application sends a query to the existing system.
+    \item The existing systems replies with a list of adresses.
+  \end{enumerate}
+  \paragraph{Exit Conditions: } The application shows a page with the list of Safe Areas with the possibility to display them as point on a map.
+  \paragraph{Exceptions: } Nothing.
+  \begin{figure}[H]
+  \centering
+    \includegraphics[scale=0.45]{Resources/showsafeareas.png}
+    \caption{Conclude the Rent Sequence Diagram}
+  \end{figure}
+  \newpage
+  \subsection{State Chart Models}
+  \paragraph{} The following models represent the state chart for the Car and Booking entity. The other entities are not 
+  represented with the state chart model because their representation doesn't fit well into a discrete state chart.
+  \subsubsection{Car's State Chart}
+  \begin{figure}[H]
+  \centering
+    \includegraphics[scale=0.75]{Resources/carStateChart.png}
+    \caption{Car's state chart model}
+  \end{figure}
+  \subsubsection{Booking's State Chart}
+  \begin{figure}[H]
+  \centering
+    \includegraphics[scale=0.75]{Resources/bookingStateChart.png}
+    \caption{Booking's state chart model}
+  \end{figure}
+  \subsection{Class Diagram}
+  \paragraph{} In the following page is reported the class diagram of the modellized entities of the world. All the details
+  about the methods are omitted to make it easier to be understood. In addition in some cases also some
+  details about the attributes of the single class is left out in order to make the representation more direct and easy-to-read.
+  \begin{sidewaysfigure}
+    \begin{figure}[H]
+    \centering
+      \includegraphics[scale=0.30]{Resources/classDiagram.png}
+  \end{figure}
+    \caption{Class Diagram Model}
+\end{sidewaysfigure}
+\newpage
+  \section{Appendix}
+  \subsection{Signatures}
+  \lstinputlisting[firstline = 1, lastline = 150]{Alloy/tookapillincadorna.als}
+  \subsection{Facts}
+  \lstinputlisting[firstline = 153, lastline = 360]{Alloy/tookapillincadorna.als}
+  \subsection{Assertions}
+  \lstinputlisting[firstline = 363, lastline = 405]{Alloy/tookapillincadorna.als}
+  \subsection{Predicates}
+  \lstinputlisting[firstline = 407, lastline = 436]{Alloy/tookapillincadorna.als}
+  \newpage
+    \begin{sidewaysfigure}
+    \begin{figure}[H]
+    \centering
+      \includegraphics[scale=0.5]{Resources/pred_show.png}
+  \end{figure}
+  \caption{Execution of predicate Show}
+  \end{sidewaysfigure}
+  \newpage
+    \begin{sidewaysfigure}
+    \begin{figure}[H]
+    \centering
+      \includegraphics[scale=0.60]{Resources/pred_twoBillings.png}
+  \end{figure}
+  \caption{Execution of predicate twoBillings}
+  \end{sidewaysfigure}
+  \newpage
+    \begin{sidewaysfigure}
+    \begin{figure}[H]
+    \centering
+      \includegraphics[scale=0.60]{Resources/pred_oneCar.png}
+  \end{figure}
+  \caption{Execution of predicate oneCar}
+  \end{sidewaysfigure}
+    \newpage
+    \begin{sidewaysfigure}
+    \begin{figure}[H]
+    \centering
+      \includegraphics[scale=0.60]{Resources/pred_oneCartwoClients.png}
+  \end{figure}
+  \caption{Execution of predicate oneCartwoClients}
+  \end{sidewaysfigure}
+\end{document}

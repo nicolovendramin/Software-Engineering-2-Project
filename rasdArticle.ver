@@ -1,0 +1,74 @@
+\begin {longtable}{@{}ll>{\hsize =\vhAuthorColWidth }X>{\hsize =\vhChangeColWidth }X@{}}
+\textbf {\vhversionname }
+ & \textbf {\vhdatename }
+ & \textbf {\vhauthorname }
+ & \textbf {\vhchangename }\\[1ex]
+0.1
+ & 31.10.16
+ & \listset {N and J}
+ & First draft of the introduction\\
+0.2
+ & 31.11.16
+ & \listset {N and J}
+ & Adding the Domain Properties\\
+0.3
+ & 1.10.16
+ & \listset {N and J}
+ & Definition of Goals and Constraints\\
+0.4
+ & 2.11.16
+ & \listset {N and J}
+ & Conclusion of the overall section\\
+0.5
+ & 3.11.16
+ & \listset {N and J}
+ & Introduction to the third section\\
+0.6
+ & 4.11.16
+ & \listset {N and J}
+ & Adding the mockup examples of the UI\\
+0.7
+ & 5.11.16
+ & \listset {N and J}
+ & Adding the Functional requirements\\
+0.8
+ & 6.11.16
+ & \listset {N and J}
+ & Adding more details about non functional req\\
+0.9
+ & 7.11.16
+ & \listset {N and J}
+ & Describing the scenarios\\
+0.10
+ & 8.11.16
+ & \listset {N and J}
+ & Adding the Use Case Diagram\\
+0.11
+ & 9.11.16
+ & \listset {N and J}
+ & Adding the Use Case Description\\
+0.12
+ & 10.11.16
+ & \listset {N and J}
+ & Adding the Sequence Diagrams\\
+0.13
+ & 10.11.16
+ & \listset {N and J}
+ & Realizing the allow signatures\\
+0.14
+ & 11.11.16
+ & \listset {N and J}
+ & Realizing the alloy facts\\
+0.15
+ & 12.11.16
+ & \listset {N and J}
+ & Realizing the alloy assertions\\
+0.16
+ & 13.11.16
+ & \listset {N and J}
+ & Realizing the alloy predicates\\
+1.0
+ & 13.11.16
+ & \listset {N and J}
+ & First release of the complete document\\
+\end {longtable}

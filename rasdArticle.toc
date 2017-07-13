@@ -1,0 +1,118 @@
+\contentsline {paragraph}{Hours of work}{II}
+\contentsline {section}{\numberline {1}Introduction}{1}
+\contentsline {subsection}{\numberline {1.1}Description of the given Problem}{1}
+\contentsline {paragraph}{}{1}
+\contentsline {paragraph}{}{1}
+\contentsline {subsubsection}{\numberline {1.1.1}Target User}{1}
+\contentsline {paragraph}{}{1}
+\contentsline {subsection}{\numberline {1.2}Existing system}{1}
+\contentsline {paragraph}{}{1}
+\contentsline {subsection}{\numberline {1.3}Definitions, Acronyms and Abbreviations}{1}
+\contentsline {subsubsection}{\numberline {1.3.1}Definitions}{1}
+\contentsline {subsubsection}{\numberline {1.3.2}Acronyms}{3}
+\contentsline {subsection}{\numberline {1.4}Identifying Stakeholders}{3}
+\contentsline {subsection}{\numberline {1.5}Reference Documents}{3}
+\contentsline {subsection}{\numberline {1.6}Overview}{3}
+\contentsline {paragraph}{}{3}
+\contentsline {section}{\numberline {2}Overall Description}{3}
+\contentsline {subsection}{\numberline {2.1}Domain Properties and Assumptions}{3}
+\contentsline {subsection}{\numberline {2.2}Goals}{5}
+\contentsline {paragraph}{}{5}
+\contentsline {subsection}{\numberline {2.3}Actors Identifying}{5}
+\contentsline {subsection}{\numberline {2.4}Constraints}{6}
+\contentsline {subsubsection}{\numberline {2.4.1}Regulatory Policies}{6}
+\contentsline {paragraph}{}{6}
+\contentsline {subsubsection}{\numberline {2.4.2}Hardware Limitations}{6}
+\contentsline {subsubsection}{\numberline {2.4.3}Parallel Operations}{6}
+\contentsline {subsection}{\numberline {2.5}Interfaces to other applications}{6}
+\contentsline {paragraph}{}{6}
+\contentsline {section}{\numberline {3}Requirements}{6}
+\contentsline {subsection}{\numberline {3.1}External Interface Requirements}{6}
+\contentsline {subsubsection}{\numberline {3.1.1}User Interfaces}{6}
+\contentsline {paragraph}{}{6}
+\contentsline {subsubsection}{\numberline {3.1.2}Software Interfaces}{10}
+\contentsline {paragraph}{}{10}
+\contentsline {subsubsection}{\numberline {3.1.3}Communication Interface}{10}
+\contentsline {paragraph}{}{10}
+\contentsline {subsection}{\numberline {3.2}Functional Requirements}{10}
+\contentsline {paragraph}{}{10}
+\contentsline {subsection}{\numberline {3.3}Performance Requirements}{12}
+\contentsline {paragraph}{}{12}
+\contentsline {subsection}{\numberline {3.4}Design Constraints}{12}
+\contentsline {paragraph}{}{12}
+\contentsline {subsection}{\numberline {3.5}Software System Attributes}{12}
+\contentsline {subsubsection}{\numberline {3.5.1}Usability}{12}
+\contentsline {subsubsection}{\numberline {3.5.2}Availability}{12}
+\contentsline {subsubsection}{\numberline {3.5.3}Security}{12}
+\contentsline {subsubsection}{\numberline {3.5.4}Maintainability}{12}
+\contentsline {subsubsection}{\numberline {3.5.5}Portability}{13}
+\contentsline {section}{\numberline {4}Scenarios and UML Models}{13}
+\contentsline {subsection}{\numberline {4.1}Scenarios}{13}
+\contentsline {subsubsection}{\numberline {4.1.1}Scenario 1}{13}
+\contentsline {paragraph}{}{13}
+\contentsline {subsubsection}{\numberline {4.1.2}Scenario 2}{13}
+\contentsline {paragraph}{}{13}
+\contentsline {subsubsection}{\numberline {4.1.3}Scenario 3}{13}
+\contentsline {paragraph}{}{13}
+\contentsline {subsubsection}{\numberline {4.1.4}Scenario 4}{13}
+\contentsline {paragraph}{}{13}
+\contentsline {subsubsection}{\numberline {4.1.5}Scenario 5}{14}
+\contentsline {paragraph}{}{14}
+\contentsline {subsection}{\numberline {4.2}Use Case Diagrams}{14}
+\contentsline {paragraph}{}{14}
+\contentsline {subsubsection}{\numberline {4.2.1}Register}{16}
+\contentsline {paragraph}{Entry Conditions: }{16}
+\contentsline {paragraph}{Flow of events: }{16}
+\contentsline {paragraph}{Exit Conditions: }{16}
+\contentsline {paragraph}{Exceptions: }{16}
+\contentsline {subsubsection}{\numberline {4.2.2}Log in}{17}
+\contentsline {paragraph}{Entry Conditions: }{17}
+\contentsline {paragraph}{Flow of events: }{17}
+\contentsline {paragraph}{Exit Conditions: }{17}
+\contentsline {paragraph}{Exceptions: }{17}
+\contentsline {subsubsection}{\numberline {4.2.3}Find Cars Next to a Specified Position}{18}
+\contentsline {paragraph}{Entry Conditions: }{18}
+\contentsline {paragraph}{Flow of events: }{18}
+\contentsline {paragraph}{Exit Conditions: }{18}
+\contentsline {paragraph}{Exceptions: }{18}
+\contentsline {subsubsection}{\numberline {4.2.4}Show Details}{20}
+\contentsline {paragraph}{Entry Conditions: }{20}
+\contentsline {paragraph}{Flow of events: }{20}
+\contentsline {paragraph}{Exit Conditions: }{20}
+\contentsline {paragraph}{Exceptions: }{20}
+\contentsline {subsubsection}{\numberline {4.2.5}Book a Vehicle}{21}
+\contentsline {paragraph}{Entry Conditions: }{21}
+\contentsline {paragraph}{Flow of events: }{21}
+\contentsline {paragraph}{Exit Conditions: }{21}
+\contentsline {paragraph}{Exceptions: }{21}
+\contentsline {subsubsection}{\numberline {4.2.6}Cancel}{22}
+\contentsline {paragraph}{Entry Conditions: }{22}
+\contentsline {paragraph}{Flow of events: }{22}
+\contentsline {paragraph}{Exit Conditions: }{22}
+\contentsline {paragraph}{Exceptions: }{22}
+\contentsline {subsubsection}{\numberline {4.2.7}Open the Vehicle}{23}
+\contentsline {paragraph}{Entry Conditions: }{23}
+\contentsline {paragraph}{Flow of events: }{23}
+\contentsline {paragraph}{Exit Conditions: }{23}
+\contentsline {paragraph}{Exceptions: }{23}
+\contentsline {subsubsection}{\numberline {4.2.8}Conclude the Rent}{24}
+\contentsline {paragraph}{Entry Conditions: }{24}
+\contentsline {paragraph}{Flow of events: }{24}
+\contentsline {paragraph}{Exit Conditions: }{24}
+\contentsline {paragraph}{Exceptions: }{24}
+\contentsline {subsubsection}{\numberline {4.2.9}Show Safe Areas}{26}
+\contentsline {paragraph}{Entry Conditions: }{26}
+\contentsline {paragraph}{Flow of events: }{26}
+\contentsline {paragraph}{Exit Conditions: }{26}
+\contentsline {paragraph}{Exceptions: }{26}
+\contentsline {subsection}{\numberline {4.3}State Chart Models}{27}
+\contentsline {paragraph}{}{27}
+\contentsline {subsubsection}{\numberline {4.3.1}Car's State Chart}{27}
+\contentsline {subsubsection}{\numberline {4.3.2}Booking's State Chart}{27}
+\contentsline {subsection}{\numberline {4.4}Class Diagram}{28}
+\contentsline {paragraph}{}{28}
+\contentsline {section}{\numberline {5}Appendix}{30}
+\contentsline {subsection}{\numberline {5.1}Signatures}{30}
+\contentsline {subsection}{\numberline {5.2}Facts}{32}
+\contentsline {subsection}{\numberline {5.3}Assertions}{37}
+\contentsline {subsection}{\numberline {5.4}Predicates}{38}

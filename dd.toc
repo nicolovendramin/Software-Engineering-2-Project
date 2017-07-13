@@ -1,0 +1,57 @@
+\contentsline {paragraph}{Hours of work}{II}
+\contentsline {section}{\numberline {1}Introduction}{1}
+\contentsline {subsection}{\numberline {1.1}Purpose}{1}
+\contentsline {paragraph}{}{1}
+\contentsline {subsection}{\numberline {1.2}Scope}{1}
+\contentsline {paragraph}{}{1}
+\contentsline {subsection}{\numberline {1.3}Definitions, Acronyms and Abbreviations}{1}
+\contentsline {subsubsection}{\numberline {1.3.1}Acronyms}{1}
+\contentsline {subsection}{\numberline {1.4}Reference Documents}{2}
+\contentsline {subsection}{\numberline {1.5}Document Structure}{2}
+\contentsline {paragraph}{}{2}
+\contentsline {section}{\numberline {2}Architectural Design}{3}
+\contentsline {subsection}{\numberline {2.1}Overview}{3}
+\contentsline {paragraph}{}{3}
+\contentsline {subsection}{\numberline {2.2}High Level Components and their Interactions}{3}
+\contentsline {paragraph}{}{3}
+\contentsline {subsubsection}{\numberline {2.2.1}Model Components}{3}
+\contentsline {subsubsection}{\numberline {2.2.2}Controller Components}{4}
+\contentsline {subsubsection}{\numberline {2.2.3}View Components}{4}
+\contentsline {subsection}{\numberline {2.3}Components' View}{5}
+\contentsline {subsection}{\numberline {2.4}Data}{6}
+\contentsline {subsubsection}{\numberline {2.4.1}Wrapping Data Strucures}{6}
+\contentsline {paragraph}{}{6}
+\contentsline {subsection}{\numberline {2.5}Runtime View}{7}
+\contentsline {paragraph}{}{7}
+\contentsline {subsubsection}{\numberline {2.5.1}Register}{7}
+\contentsline {subsubsection}{\numberline {2.5.2}Log in}{8}
+\contentsline {subsubsection}{\numberline {2.5.3}Show Account Details}{8}
+\contentsline {subsubsection}{\numberline {2.5.4}Find Cars Next to a Specified Position}{9}
+\contentsline {subsubsection}{\numberline {2.5.5}Show Details}{9}
+\contentsline {subsubsection}{\numberline {2.5.6}Book a Vehicle}{10}
+\contentsline {subsubsection}{\numberline {2.5.7}Cancel Booking}{11}
+\contentsline {subsubsection}{\numberline {2.5.8}Open the Vehicle}{12}
+\contentsline {subsubsection}{\numberline {2.5.9}Conclude the Rent}{13}
+\contentsline {subsection}{\numberline {2.6}Component's Interfaces}{13}
+\contentsline {paragraph}{}{13}
+\contentsline {subsubsection}{\numberline {2.6.1}Model Components}{13}
+\contentsline {subsubsection}{\numberline {2.6.2}Controller Components}{14}
+\contentsline {subsubsection}{\numberline {2.6.3}View Components}{14}
+\contentsline {subsection}{\numberline {2.7}Deployment of the software architecture}{14}
+\contentsline {paragraph}{}{14}
+\contentsline {subsubsection}{\numberline {2.7.1}Deployment View}{14}
+\contentsline {subsection}{\numberline {2.8}Selected Architectural Styles and Patterns}{15}
+\contentsline {paragraph}{}{15}
+\contentsline {subsubsection}{\numberline {2.8.1}Three Tier Architecure}{15}
+\contentsline {subsubsection}{\numberline {2.8.2}Cloud Hosting Platform}{15}
+\contentsline {subsubsection}{\numberline {2.8.3}Model View Controller Pattern}{15}
+\contentsline {subsubsection}{\numberline {2.8.4}Proxy Pattern}{15}
+\contentsline {subsubsection}{\numberline {2.8.5}Adapter Pattern}{16}
+\contentsline {section}{\numberline {3}Algorithm Design}{16}
+\contentsline {paragraph}{}{16}
+\contentsline {section}{\numberline {4}User Experience}{16}
+\contentsline {paragraph}{}{16}
+\contentsline {subsection}{\numberline {4.1}Mockups}{16}
+\contentsline {subsection}{\numberline {4.2}User eXperience Diagram}{25}
+\contentsline {paragraph}{}{25}
+\contentsline {section}{\numberline {5}Requirement's Traceability}{26}
